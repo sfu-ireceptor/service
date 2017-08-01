@@ -6,8 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class DnaInfo extends Model
 {
-	protected $table = "dna_info";
-		
-		
-
+    protected $table = 'dna_info';
 }
