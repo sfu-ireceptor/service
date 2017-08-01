@@ -6,8 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Source extends Model
 {
-	protected $table = "sample_source";
-			
-		
-
+    protected $table = 'sample_source';
 }
