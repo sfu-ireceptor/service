@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Stats;
-use App\SequenceMdView;
-
 use Carbon\Carbon;
-
+use App\SequenceMdView;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -35,10 +33,9 @@ class CanarieController extends Controller
         return view('canarieLink', $data);
     }
 
-
     public function dbInfo(Request $request, Response $response)
     {
-        $t = array();
+        $t = [];
 
         $t['name'] = 'iReceptor Database Service';
         $t['category'] = 'Data Storage and Retrieval';
@@ -46,10 +43,10 @@ class CanarieController extends Controller
         $t['version'] = '0.1';
         $t['institution'] = 'IRMACS/Simon Fraser University';
         $d = new Carbon('first day of July 2015', 'UTC');
-        $t['releaseTime'] = $d->toDateString() . 'T'  . $d->toTimeString() . 'Z';
+        $t['releaseTime'] = $d->toDateString() . 'T' . $d->toTimeString() . 'Z';
         $t['researchSubject'] = 'Immunology';
         $t['supportEmail'] = 'help@irmacs.sfu.ca';
-        $t['tags'] = array('immunology','iReceptor');
+        $t['tags'] = ['immunology', 'iReceptor'];
 
         if ($request->wantsJson()) {
             return $response->json($t);
@@ -58,10 +55,9 @@ class CanarieController extends Controller
         }
     }
 
-
     public function dbmigrationInfo(Request $request, Response $response)
     {
-        $t = array();
+        $t = [];
 
         $t['name'] = 'iReceptor Database Migration Service';
         $t['category'] = 'Sensor Management/Data Acquisition';
@@ -69,10 +65,10 @@ class CanarieController extends Controller
         $t['version'] = '0.1';
         $t['institution'] = 'IRMACS/Simon Fraser University';
         $d = new Carbon('first day of July 2015', 'UTC');
-        $t['releaseTime'] = $d->toDateString() . 'T'  . $d->toTimeString() . 'Z';
+        $t['releaseTime'] = $d->toDateString() . 'T' . $d->toTimeString() . 'Z';
         $t['researchSubject'] = 'Immunology';
         $t['supportEmail'] = 'help@irmacs.sfu.ca';
-        $t['tags'] = array('immunology','iReceptor');
+        $t['tags'] = ['immunology', 'iReceptor'];
 
         if ($request->wantsJson()) {
             return $response->json($t);
@@ -81,45 +77,42 @@ class CanarieController extends Controller
         }
     }
 
-  
-     public function dbStats(Request $request, Response $response)
+    public function dbStats(Request $request, Response $response)
     {
-    	$t = array();
+        $t = [];
 
-    	$s = Stats::currentStats();
+        $s = Stats::currentStats();
 
-    	$t['nbRequests'] = $s->nb_requests;
-    	$t['lastReset'] = $s->startDateIso8601();
+        $t['nbRequests'] = $s->nb_requests;
+        $t['lastReset'] = $s->startDateIso8601();
 
         if ($request->wantsJson()) {
             return $response->json($t);
-        }
-        else {
+        } else {
             $t['name'] = 'iReceptor Database Service Stats';
             $t['key'] = 'Number of requests';
             $t['val'] = $t['nbRequests'];
+
             return view('canarieStats', $t);
         }
     }
 
-
-        public function dbmigrationStats()
+    public function dbmigrationStats()
     {
-        $t = array();
+        $t = [];
 
-        $t['nbSequences'] = SequenceMdView::count();      
+        $t['nbSequences'] = SequenceMdView::count();
         $d = new Carbon('last day of June 2015', 'UTC');
-        $t['lastReset'] = $d->toDateString() . 'T'  . $d->toTimeString() . 'Z';
+        $t['lastReset'] = $d->toDateString() . 'T' . $d->toTimeString() . 'Z';
 
         if ($request->wantsJson()) {
             return $response->json($t);
-        }
-        else {
+        } else {
             $t['name'] = 'iReceptor Database Migration Service Stats';
             $t['key'] = 'Number of sequences';
             $t['val'] = $t['nbSequences'];
+
             return view('canarieStats', $t);
         }
     }
-
 }
