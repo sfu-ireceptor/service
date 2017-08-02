@@ -35,6 +35,10 @@ Route::get('dbmigration/service/{page}', 'CanarieController@linkPage');
 |--------------------------------------------------------------------------
 */
 
+Route::any('test', function (Request $request) {
+    return 'test';
+})->middleware('auth.basic');    
+
 Route::any('samples', function (Request $request) {
     $filter = $request->all();
     // ExternalUser::checkPermissions($filter);
