@@ -3,7 +3,7 @@
 use App\Lab;
 use App\Source;
 use App\DnaInfo;
-//use App\Project;
+use App\ExternalUser;
 use App\Subject;
 use App\CellSubsetType;
 use App\CaseControlType;
@@ -35,23 +35,24 @@ Route::get('dbmigration/service/{page}', 'CanarieController@linkPage');
 |--------------------------------------------------------------------------
 */
 
-Route::any('test', function (Request $request) {
-    return 'test';
-})->middleware('auth.basic');    
-
+// Route::any('test', function (Request $request) {
+//     return 'test';
+// })->middleware('auth.basic');    
+    
 Route::any('samples', function (Request $request) {
     $filter = $request->all();
-    // ExternalUser::checkPermissions($filter);
+    ExternalUser::checkPermissions($filter);
 
     $sample_query_list = SampleQueryView::getSamples($filter);
 
     return json_encode($sample_query_list);
-});
+})->middleware('auth.basic');
 
 Route::any('metadata', function (Request $request) {
     $filter = $request->all();
-        // ExternalUser::checkPermissions($filter);
-        $lab = new Lab();
+    ExternalUser::checkPermissions($filter);
+    
+    $lab = new Lab();
     $labprojectlist = $lab->getProjectsByLab();
     $ethnicity = Subject::distinct()->get(['ethnicity']);
     $gender = Subject::distinct()->get(['sex']);
@@ -96,7 +97,7 @@ Route::any('metadata', function (Request $request) {
                 'source'=>$source_array,
                 'gender'=>$gender_array,
                 'cellsubsettypes'=>$subset_array, ]);
-});
+})->middleware('auth.basic');
 /*
 |--------------------------------------------------------------------------
 | Misc
@@ -104,6 +105,6 @@ Route::any('metadata', function (Request $request) {
 */
 
 // update request count for CANARIE
-if (! App::runningInConsole()) {
+if (! app()->runningInConsole()) {
     App\Stats::incrementNbRequests();
 }
