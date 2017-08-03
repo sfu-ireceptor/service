@@ -100,7 +100,7 @@ Route::middleware('auth.basic')->group(function () {
 
 Route::any('sequences', function (Request $request) {
     $filter = $request->all();
-    // ExternalUser::checkPermissions($filter);
+    ExternalUser::checkPermissions($filter);
 
     $t = [];
 
