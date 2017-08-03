@@ -3,8 +3,8 @@
 use App\Lab;
 use App\Source;
 use App\DnaInfo;
-use App\ExternalUser;
 use App\Subject;
+use App\ExternalUser;
 use App\CellSubsetType;
 use App\SequenceMdView;
 use App\CaseControlType;
@@ -49,7 +49,7 @@ Route::middleware('auth.basic')->group(function () {
     Route::any('metadata', function (Request $request) {
         $filter = $request->all();
         ExternalUser::checkPermissions($filter);
-        
+
         $lab = new Lab();
         $labprojectlist = $lab->getProjectsByLab();
         $ethnicity = Subject::distinct()->get(['ethnicity']);
@@ -97,7 +97,6 @@ Route::middleware('auth.basic')->group(function () {
                     'cellsubsettypes'=>$subset_array, ]);
     });
 });
-
 
 Route::any('sequences', function (Request $request) {
     $filter = $request->all();
