@@ -6,6 +6,7 @@ use App\DnaInfo;
 use App\ExternalUser;
 use App\Subject;
 use App\CellSubsetType;
+use App\SequenceMdView;
 use App\CaseControlType;
 use App\SampleQueryView;
 use Illuminate\Http\Request;
@@ -95,6 +96,35 @@ Route::middleware('auth.basic')->group(function () {
                     'gender'=>$gender_array,
                     'cellsubsettypes'=>$subset_array, ]);
     });
+});
+
+
+Route::any('sequences', function (Request $request) {
+    $filter = $request->all();
+    // ExternalUser::checkPermissions($filter);
+
+    $t = [];
+
+    if (! isset($filter['output'])) {
+        $filter['output'] = 'json';
+    }
+    switch (strtolower($filter['output'])) {
+        case 'csv':
+            return Response::download(SequenceMdView::createCsvGW($filter))->deleteFileAfterSend(true);
+            break;
+        case 'vdjml':
+            return Response::download(SequenceMdView::createVdjml($filter))->deleteFileAfterSend(true);
+            break;
+        default:
+            $sequence_query_list = SequenceMdView::getSequencesQuery($filter);
+            $t['items'] = $sequence_query_list;
+
+            $sequence_count = SequenceMdView::getSequencesCount($filter);
+            $t['total'] = $sequence_count;
+
+            return json_encode($t);
+        break;
+    }
 });
 
 /*
