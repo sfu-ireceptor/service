@@ -26,9 +26,9 @@ Route::get('dbmigration/service/{page}', 'CanarieController@linkPage');
 */
 
 Route::middleware('auth.basic')->group(function () {
-    Route::any('samples', 'SampleController@index');    
-    Route::any('metadata', 'MetadataController@index');  
-    Route::any('sequences', 'SequenceController@index');  
+    Route::any('samples', 'SampleController@index');
+    Route::any('metadata', 'MetadataController@index');
+    Route::any('sequences', 'SequenceController@index');
 });
 
 /*
