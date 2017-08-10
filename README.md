@@ -1,5 +1,9 @@
 # iReceptor Service
 
+## Server requirements
+https://laravel.com/docs/5.4/installation#server-requirements
+
+
 ## Installation
 ```
 # get source code
