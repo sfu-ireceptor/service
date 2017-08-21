@@ -79,7 +79,7 @@ class SequenceController extends Controller
         $sequence_summary_list = VquestMetadata::getAggregate($filter);
         $t['aggregation_summary'] = $sequence_summary_list;
         $sequence_query_list = SequenceMdView::getSequencesQuery($filter);
-        $t['items'] = $sequence_query_list;
+        $t['sequences'] = $sequence_query_list;
 
         return json_encode($t);
     }
