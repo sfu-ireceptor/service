@@ -31,7 +31,8 @@ Route::middleware('auth.basic')->group(function () {
     Route::any('sequences', 'SequenceController@index');
     Route::any('analysis', 'SequenceController@analysis');
     Route::any('clones', 'SequenceController@clones');
-    Route::any('sequence_summary', 'SequenceController@summary');
+    Route::any('/v2/sequences_summary', 'SequenceController@summary');
+    Route::any('/v2/samples_airr', 'SampleController@airr_samples');
     
 });
 
