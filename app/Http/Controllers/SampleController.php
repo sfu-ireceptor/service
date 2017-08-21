@@ -14,18 +14,19 @@ class SampleController extends Controller
         $filter = $request->all();
         ExternalUser::checkPermissions($filter);
 
-        $sample_query_list = SampleQueryView::getSamples($filter);
+        if (isset($filter["output"]) && $filter["output"] == "airr")
+        {    
+          $sample_query_list = SampleAirrView::getSamples($filter);
+        }
+        else
+        {
 
+          $sample_query_list = SampleQueryView::getSamples($filter);
+        }
         return json_encode($sample_query_list);
     }
     public function airr_samples(Request $request)
     {
-        $filter = $request->all();
-        ExternalUser::checkPermissions($filter);
-
-        $sample_airr_list = SampleAirrView::getSamples($filter);
-
-        return json_encode($sample_airr_list);
 
     }
 }
