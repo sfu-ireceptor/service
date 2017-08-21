@@ -33,7 +33,6 @@ Route::middleware('auth.basic')->group(function () {
     Route::any('clones', 'SequenceController@clones');
     Route::any('/v2/sequences_summary', 'SequenceController@summary');
     Route::any('/v2/samples_airr', 'SampleController@airr_samples');
-    
 });
 
 /*

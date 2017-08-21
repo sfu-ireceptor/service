@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\ExternalUser;
-use App\SequenceMdView;
 use App\Analysis;
+use App\ExternalUser;
 use App\CloneDataView;
+use App\SequenceMdView;
 use App\VquestMetadata;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -40,47 +40,47 @@ class SequenceController extends Controller
             break;
         }
     }
+
     public function clones(Request $request)
     {
         $filter = $request->all();
-    	ExternalUser::checkPermissions($filter);
-    	
-    	$t = array();
-    	if (empty($filter['output']) || ($filter['output'] != "csv"))
-    	{
-    		$clone_query_list = CloneDataView::getClonesQuery($filter);
-    		$t['items'] = $clone_query_list;
-    	
-    		$clone_count = CloneDataView::getClonesCount($filter);
-    		$t['total'] = $clone_count;
-    	
-    		return json_encode($t);
-    	}
-    	else
-    	{
-    		return Response::download(CloneDataView::createCsvGW($filter));
-    	}    
+        ExternalUser::checkPermissions($filter);
+
+        $t = [];
+        if (empty($filter['output']) || ($filter['output'] != 'csv')) {
+            $clone_query_list = CloneDataView::getClonesQuery($filter);
+            $t['items'] = $clone_query_list;
+
+            $clone_count = CloneDataView::getClonesCount($filter);
+            $t['total'] = $clone_count;
+
+            return json_encode($t);
+        } else {
+            return Response::download(CloneDataView::createCsvGW($filter));
+        }
     }
+
     public function analysis(Request $request)
     {
-    	$filter = $request->all();
-    	ExternalUser::checkPermissions($filter);
-    	
-    	$analysis_list = Analysis::getAnalysis($filter);
-    	
-    	return json_encode($analysis_list);
+        $filter = $request->all();
+        ExternalUser::checkPermissions($filter);
+
+        $analysis_list = Analysis::getAnalysis($filter);
+
+        return json_encode($analysis_list);
     }
+
     public function summary(Request $request)
     {
-    	$filter = $request->all();
-    	ExternalUser::checkPermissions($filter);
-    	
-    	$t = array();
-    	$sequence_summary_list = VquestMetadata::getAggregate($filter);
-    	$t['aggregation_summary'] = $sequence_summary_list;
-    	$sequence_query_list = SequenceMdView::getSequencesQuery($filter);
-    	$t['items'] = $sequence_query_list;
-    	
-    	return json_encode($t);
+        $filter = $request->all();
+        ExternalUser::checkPermissions($filter);
+
+        $t = [];
+        $sequence_summary_list = VquestMetadata::getAggregate($filter);
+        $t['aggregation_summary'] = $sequence_summary_list;
+        $sequence_query_list = SequenceMdView::getSequencesQuery($filter);
+        $t['items'] = $sequence_query_list;
+
+        return json_encode($t);
     }
 }
