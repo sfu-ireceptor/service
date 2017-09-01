@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Analysis;
 use App\ExternalUser;
 use App\CloneDataView;
+use App\CloneDataFeature;
 use App\SequenceMdView;
 use App\VquestMetadata;
 use Illuminate\Http\Request;
@@ -48,11 +49,11 @@ class SequenceController extends Controller
 
         $t = [];
         if (empty($filter['output']) || ($filter['output'] != 'csv')) {
-            $clone_query_list = CloneDataView::getClonesQuery($filter);
-            $t['items'] = $clone_query_list;
+            $clone_count = CloneDataFeature::getClonesAggregate($filter);
+            $t['aggregates'] = $clone_count;
+            $clone_query_list = CloneDataFeature::getClonesQuery($filter);
+            $t['clones'] = $clone_query_list;
 
-            $clone_count = CloneDataView::getClonesCount($filter);
-            $t['total'] = $clone_count;
 
             return json_encode($t);
         } else {
