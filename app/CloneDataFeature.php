@@ -33,9 +33,8 @@ class CloneDataFeature extends Model
 
     public static function parseFilter(&$query, $f)
     {
-        if (isset ($f['cd_analysis_id_list']))
-        {
-          $query = $query->whereIn('cd_analysis_id', $f['cd_analysis_id_list']);
+        if (isset($f['cd_analysis_id_list'])) {
+            $query = $query->whereIn('cd_analysis_id', $f['cd_analysis_id_list']);
         }
 
         foreach ($f as $filtername => $filtervalue) {
@@ -110,8 +109,8 @@ class CloneDataFeature extends Model
          }
 
         return $sample_metadata;
-
     }
+
     public static function createCsvGW($filter)
     {
         //function to CSV-ise a JSON result list for sequence annotation and metadata
