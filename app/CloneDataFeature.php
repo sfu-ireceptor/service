@@ -89,6 +89,7 @@ class CloneDataFeature extends Model
          $query = new self();
          $psa_list = [];
          $counts = [];
+         $sample_metadata = [];
          self::parseFilter($query, $f);
          $result = $query->groupBy('psa_id')->select('psa_id', DB::raw('count(*) as total'))->get();
          foreach ($result as $psa) 
@@ -96,10 +97,12 @@ class CloneDataFeature extends Model
              $psa_list[] = $psa['psa_id'];
              $counts[$psa['psa_id']] = $psa['total'];
          }
-
+         if (count($psa_list) <1)
+         {
+             return $sample_metadata;
+         }
          $sample_query = new SampleQueryView();
          $sample_rows = $sample_query->whereIn('project_sample_id', $psa_list)->get();
-         $sample_metadata = [];
          foreach ($sample_rows as $sample) 
          {
               $sample['clones'] = $counts[$sample['project_sample_id']];
