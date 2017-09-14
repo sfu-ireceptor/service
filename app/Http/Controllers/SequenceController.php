@@ -25,10 +25,7 @@ class SequenceController extends Controller
         }
         switch (strtolower($filter['output'])) {
             case 'csv':
-                return Response::download(SequenceMdView::createCsvGW($filter))->deleteFileAfterSend(true);
-                break;
-            case 'vdjml':
-                return Response::download(SequenceMdView::createVdjml($filter))->deleteFileAfterSend(true);
+                return response()->download(SequenceMdView::createCsvGW($filter))->deleteFileAfterSend(true);
                 break;
             default:
                 $sequence_query_list = SequenceMdView::getSequencesQuery($filter);
@@ -56,7 +53,7 @@ class SequenceController extends Controller
 
             return json_encode($t);
         } else {
-            return Response::download(CloneDataView::createCsvGW($filter));
+            return response()->download(CloneDataView::createCsvGW($filter))->deleteFileAfterSend(true);
         }
     }
 
