@@ -102,7 +102,7 @@ class CloneDataFeature extends Model
         $sample_rows = $sample_query->whereIn('project_sample_id', $psa_list)->get();
         foreach ($sample_rows as $sample) {
             $sample['clones'] = $counts[$sample['project_sample_id']];
-            $sample_metadata[$sample['project_sample_id']] = $sample;
+            $sample_metadata[] = $sample;
         }
 
         return $sample_metadata;

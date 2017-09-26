@@ -169,7 +169,7 @@ class VquestMetadata extends Model
         $sample_metadata = [];
         foreach ($sample_rows as $sample) {
             $sample['sequences'] = $counts[$sample['project_sample_id']];
-            $sample_metadata[$sample['project_sample_id']] = $sample;
+            $sample_metadata[] = $sample;
         }
 
         return $sample_metadata;
