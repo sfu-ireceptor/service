@@ -47,9 +47,9 @@ class SequenceController extends Controller
         $t = [];
         if (empty($filter['output']) || ($filter['output'] != 'csv')) {
             $clone_count = CloneDataFeature::getClonesAggregate($filter);
-            $t['aggregates'] = $clone_count;
+            $t['summary'] = $clone_count;
             $clone_query_list = CloneDataFeature::getClonesQuery($filter);
-            $t['clones'] = $clone_query_list;
+            $t['items'] = $clone_query_list;
 
             return json_encode($t);
         } else {
@@ -74,9 +74,9 @@ class SequenceController extends Controller
 
         $t = [];
         $sequence_summary_list = VquestMetadata::getAggregate($filter);
-        $t['aggregation_summary'] = $sequence_summary_list;
+        $t['summary'] = $sequence_summary_list;
         $sequence_query_list = SequenceMdView::getSequencesQuery($filter);
-        $t['sequences'] = $sequence_query_list;
+        $t['items'] = $sequence_query_list;
 
         return json_encode($t);
     }
