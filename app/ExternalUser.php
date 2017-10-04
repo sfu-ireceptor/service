@@ -10,7 +10,7 @@ class ExternalUser extends Model
 
     public static function checkPermissions($filter)
     {
-        if(config('app.auth')) {
+        if (config('app.auth')) {
             if (! isset($filter['username'])) {
                 app()->abort(401, 'The username parameter is required.');
             }

@@ -11,7 +11,7 @@ class SampleController extends Controller
 {
     public function __construct()
     {
-        if(config('app.auth')) {
+        if (config('app.auth')) {
             $this->middleware('auth.basic');
         }
     }
