@@ -13,6 +13,13 @@ use Illuminate\Http\Response;
 
 class SequenceController extends Controller
 {
+    public function __construct()
+    {
+        if(config('app.auth')) {
+            $this->middleware('auth.basic');
+        }
+    }
+
     public function index(Request $request)
     {
         $filter = $request->all();
