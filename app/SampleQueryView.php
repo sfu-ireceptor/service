@@ -7,15 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class SampleQueryView extends Model
 {
     protected $table = 'sample_query_view';
-    private static $max_results = 50;
 
     public static function getSamples($f)
     {
         //Log::debug($f);
 
         $query = new self();
-        $num_results = self::$max_results;
-        $start_at = 0;
 
         if (isset($f['lab_id']) && $f['lab_id'] != '') {
             $query = $query->where('lab_id', '=', $f['lab_id']);
@@ -80,11 +77,7 @@ class SampleQueryView extends Model
         if (! empty($f['page_number']) && ($f['page_number'] > 0)) {
             $start_at = $f['page_number'] - 1;
         }
-        if (! empty($f['num_results']) && ($f['num_results'] > 0)) {
-            $num_results = $f['num_results'];
-        }
-
-        $list = $query->skip($start_at * $num_results)->take($num_results)->get();
+        $list = $query->get();
 
         return $list;
     }

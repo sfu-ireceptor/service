@@ -7,22 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class SampleAirrView extends Model
 {
     protected $table = 'sample_airr_view';
-    private static $max_results = 50;
 
     public static function getSamples($f)
     {
         //Log::debug($f);
 
         $query = new self();
-        $num_results = self::$max_results;
-        $start_at = 0;
 
         if (isset($f['lab_id']) && $f['lab_id'] != '') {
-            $query = $query->where('lab_id', '=', $f['lab_id']);
+            $query = $query->where('ir_lab_id', '=', $f['lab_id']);
         }
 
         if (isset($f['project_id']) && ! empty($f['project_id'])) {
-            $query = $query->whereIn('project_id', $f['project_id']);
+            $query = $query->whereIn('ir_project_id', $f['project_id']);
         }
 
         if (isset($f['subject_gender']) && $f['subject_gender'] != '') {
@@ -30,7 +27,7 @@ class SampleAirrView extends Model
         }
 
         if (isset($f['subject_code']) && $f['subject_code'] != '') {
-            $query = $query->where('subject_code', 'like', '%' . $f['subject_code'] . '%');
+            $query = $query->where('subject_id', 'like', '%' . $f['subject_code'] . '%');
         }
 
         if (isset($f['subject_ethnicity']) && $f['subject_ethnicity'] != '') {
@@ -46,7 +43,7 @@ class SampleAirrView extends Model
         }
 
         if (isset($f['case_control_id']) && $f['case_control_id'] != '') {
-            $query = $query->where('case_control_id', '=', $f['case_control_id']);
+            $query = $query->where('ir_case_control_id', '=', $f['case_control_id']);
         }
 
         if (isset($f['case_control_name']) && $f['case_control_name'] != '') {
@@ -58,7 +55,7 @@ class SampleAirrView extends Model
         }
 
         if (isset($f['sample_source_id']) && ! empty($f['sample_source_id'])) {
-            $query = $query->whereIn('sample_source_id', $f['sample_source_id']);
+            $query = $query->whereIn('ir_sample_source_id', $f['sample_source_id']);
         }
 
         if (isset($f['sample_source_name']) && ! empty($f['sample_source_name'])) {
@@ -66,25 +63,18 @@ class SampleAirrView extends Model
         }
 
         if (isset($f['dna_id']) && ! empty($f['dna_id'])) {
-            $query = $query->whereIn('dna_id', $f['dna_id']);
+            $query = $query->whereIn('ir_dna_id', $f['dna_id']);
         }
 
         if (isset($f['dna_type']) && ! empty($f['dna_type'])) {
-            $query = $query->whereIn('dna_type', $f['dna_type']);
+            $query = $query->whereIn('library_source', $f['dna_type']);
         }
 
         if (isset($f['ireceptor_cell_subset_name']) && ! empty($f['ireceptor_cell_subset_name'])) {
             $query = $query->whereIn('cell_subset', $f['ireceptor_cell_subset_name']);
         }
 
-        if (! empty($f['page_number']) && ($f['page_number'] > 0)) {
-            $start_at = $f['page_number'] - 1;
-        }
-        if (! empty($f['num_results']) && ($f['num_results'] > 0)) {
-            $num_results = $f['num_results'];
-        }
-
-        $list = $query->skip($start_at * $num_results)->take($num_results)->get();
+        $list = $query->get();
 
         return $list;
     }
