@@ -164,11 +164,11 @@ class VquestMetadata extends Model
             $counts[$psa['project_sample_id']] = $psa['total'];
         }
 
-        $sample_query = new SampleQueryView();
-        $sample_rows = $sample_query->whereIn('project_sample_id', $psa_list)->get();
+        $sample_query = new SampleAirrView();
+        $sample_rows = $sample_query->whereIn('ir_project_sample_id', $psa_list)->get();
         $sample_metadata = [];
         foreach ($sample_rows as $sample) {
-            $sample['sequences'] = $counts[$sample['project_sample_id']];
+            $sample['sequences'] = $counts[$sample['ir_project_sample_id']];
             $sample_metadata[] = $sample;
         }
 
