@@ -126,8 +126,10 @@ class VquestMetadata extends Model
 
     public static function parseFilter(&$query, $f)
     {
-        $query = $query->whereIn('project_sample_id', $f['project_sample_id_list']);
-
+        if (isset ($f['project_sample_id_list']))
+        {
+           $query = $query->whereIn('project_sample_id', $f['project_sample_id_list']);
+        }
         foreach ($f as $filtername => $filtervalue) {
             if (empty(self::$coltype[$filtername]) || $filtervalue == '') {
                 continue;
