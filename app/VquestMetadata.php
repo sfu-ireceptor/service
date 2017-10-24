@@ -129,8 +129,14 @@ class VquestMetadata extends Model
         if (isset($f['project_sample_id_list'])) {
             $query = $query->whereIn('project_sample_id', $f['project_sample_id_list']);
         }
+        if (isset($f['ir_project_sample_id_list'])) {
+            $query = $query->whereIn('project_sample_id', $f['ir_project_sample_id_list']);
+        }
         foreach ($f as $filtername => $filtervalue) {
             if (empty(self::$coltype[$filtername]) || $filtervalue == '') {
+                continue;
+            }
+            if ($filtername == 'ir_project_sample_id_list') {
                 continue;
             }
             if ($filtername == 'project_sample_id_list') {
