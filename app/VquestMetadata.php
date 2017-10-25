@@ -1,14 +1,12 @@
 <?php
 
 namespace App;
-use App\Filter;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class VquestMetadata extends Model
 {
-
-
     protected $table = 'vquest_metadata';
 
     public function sequenceData()
