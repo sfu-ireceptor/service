@@ -162,11 +162,11 @@ class Filter extends Model
 			{
 				$query = $query->where('junction_sequence_aa', 'like', '%'. $filtervalue .'%');
 			}
-			if ($filtername = 'junction_length')
+			if ($filtername == 'junction_length')
 			{
 				$query = $query->where('junction_nt_length', '=', $filtervalue);
 			}
-			if ($filtername = 'ir_junction_aa_length')
+			if ($filtername == 'ir_junction_aa_length')
 			{
 				$query = $query->where('junction_aa_length', '=', $filtervalue);
 			}
