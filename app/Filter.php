@@ -149,15 +149,15 @@ class Filter extends Model
                 continue;
             }
             if ($filtername == 'v_allele') {
-                $query = $query->where('vgene_allele', 'like', '%' . $filtervalue . '%');
+                $query = $query->where('vgene_allele', 'like', $filtervalue . '%');
                 continue;
             }
             if ($filtername == 'j_allele') {
-                $query = $query->where('jgene_allele', 'like', '%' . $filtervalue . '%');
+                $query = $query->where('jgene_allele', 'like', $filtervalue . '%');
                 continue;
             }
             if ($filtername == 'd_allele') {
-                $query = $query->where('dgene_allele', 'like', '%' . $filtervalue . '%');
+                $query = $query->where('dgene_allele', 'like', $filtervalue . '%');
                 continue;
             }
 
