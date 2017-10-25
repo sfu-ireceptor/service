@@ -142,6 +142,16 @@ class Filter extends Model
 			if ($filtername == 'project_sample_id_list') {
 				continue;
 			}
+			if ($filtername == 'junction_length')
+			{
+				$query = $query->where('junction_nt_length', '=', $filtervalue);
+				continue;
+			}
+			if ($filtername == 'ir_junction_aa_length')
+			{
+				$query = $query->where('junction_aa_length', '=', $filtervalue);
+				continue;
+			}
 			if ($filtername == 'v_allele'){
 				$query = $query->where ('vgene_allele', 'like', '%'.$filtervalue.'%');
 				continue;
@@ -158,20 +168,9 @@ class Filter extends Model
 			if ($filtername == 'junction_aa')
 			{
 				$query = $query->where('junction_sequence_aa', 'like', '%'. $filtervalue .'%');
-				continue;
-				
+				continue;				
 			}
-			if ($filtername == 'junction_length')
-			{
-				$query = $query->where('junction_nt_length', '=', $filtervalue);
-				continue;
-				
-			}
-			if ($filtername == 'ir_junction_aa_length')
-			{
-				$query = $query->where('junction_aa_length', '=', $filtervalue);
-				continue;
-			}
+
 			if (empty(self::$coltype[$filtername]) || $filtervalue == '') {
 				continue;
 			}
