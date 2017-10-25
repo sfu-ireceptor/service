@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Filter;
 use Log;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
