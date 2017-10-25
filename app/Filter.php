@@ -136,9 +136,6 @@ class Filter extends Model
 		}
 	
 		foreach ($f as $filtername => $filtervalue) {
-			if (empty(self::$coltype[$filtername]) || $filtervalue == '') {
-				continue;
-			}
 			if ($filtername == 'ir_project_sample_id_list') {
 				continue;
 			}
@@ -146,30 +143,39 @@ class Filter extends Model
 				continue;
 			}
 			if ($filtername == 'v_allele'){
-				$query = $query->where ('vgene_allele', 'like', $filtervalue.'%');
+				$query = $query->where ('vgene_allele', 'like', '%'.$filtervalue.'%');
 				continue;
 			}
 			if ($filtername == 'j_allele'){
-				$query = $query->where ('jgene_allele', 'like', $filtervalue.'%');
+				$query = $query->where ('jgene_allele', 'like', '%'.$filtervalue.'%');
 				continue;
 			}
 			if ($filtername == 'd_allele'){
-				$query = $query->where ('dgene_allele', 'like', $filtervalue.'%');
+				$query = $query->where ('dgene_allele', 'like', '%'.$filtervalue.'%');
 				continue;
 			}
 				
 			if ($filtername == 'junction_aa')
 			{
 				$query = $query->where('junction_sequence_aa', 'like', '%'. $filtervalue .'%');
+				continue;
+				
 			}
 			if ($filtername == 'junction_length')
 			{
 				$query = $query->where('junction_nt_length', '=', $filtervalue);
+				continue;
+				
 			}
 			if ($filtername == 'ir_junction_aa_length')
 			{
 				$query = $query->where('junction_aa_length', '=', $filtervalue);
+				continue;
 			}
+			if (empty(self::$coltype[$filtername]) || $filtervalue == '') {
+				continue;
+			}
+				
 			if (self::$coltype[$filtername] == 'string') {
 				$query = $query->where($filtername, 'like', '%' . $filtervalue . '%');
 			}
