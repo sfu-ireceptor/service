@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('admin/field-names', 'AdminController@getFieldNames');
+Route::get('admin/test', 'AdminController@getTest');
+
