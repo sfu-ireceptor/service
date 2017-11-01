@@ -10,6 +10,7 @@ use App\VquestMetadata;
 use App\CloneDataFeature;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\FieldName;
 
 class SequenceController extends Controller
 {
@@ -83,7 +84,9 @@ class SequenceController extends Controller
         $sequence_summary_list = VquestMetadata::getAggregate($filter);
         $t['summary'] = $sequence_summary_list;
         $sequence_query_list = SequenceMdView::getSequencesQuery($filter);
-        $t['items'] = $sequence_query_list;
+        $return_sequence_list = FieldName::convertList($sequence_query_list->toArray(), 'ir_v1_sql', 'ir_v2');
+        //$t['items'] = $sequence_query_list;
+        $t['items'] = $return_sequence_list;
 
         return json_encode($t);
     }
