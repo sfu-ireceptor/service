@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\FieldName;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
