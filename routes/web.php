@@ -17,4 +17,3 @@ Route::get('/', function () {
 
 Route::get('admin/field-names', 'AdminController@getFieldNames');
 Route::get('admin/test', 'AdminController@getTest');
-
