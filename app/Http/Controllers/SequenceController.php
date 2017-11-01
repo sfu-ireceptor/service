@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Analysis;
+use App\FieldName;
 use App\ExternalUser;
 use App\CloneDataView;
 use App\SequenceMdView;
@@ -10,7 +11,6 @@ use App\VquestMetadata;
 use App\CloneDataFeature;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\FieldName;
 
 class SequenceController extends Controller
 {
