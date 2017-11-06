@@ -65,6 +65,10 @@ class SampleAirrView extends Model
             $query = $query->where('study_group_description', '=', $f['study_group_description']);
         }
 
+        if (isset($f['sample_id']) && $f['sample_id'] != '') {
+            $query = $query->where('sample_id', 'like', '%' . $f['sample_id'] . '%');
+        }
+
         if (isset($f['sample_name']) && $f['sample_name'] != '') {
             $query = $query->where('sample_id', 'like', '%' . $f['sample_name'] . '%');
         }
