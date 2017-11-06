@@ -25,6 +25,10 @@ class SampleAirrView extends Model
         if (isset($f['sex']) && $f['sex'] != '') {
             $query = $query->where('sex', '=', $f['sex']);
         }
+        if (isset($f['study_id']) && $f['study_id'] != '') {
+            $query = $query->where('study_id', 'like', '%' . $f['study_id'] . '%');
+        }
+
         if (isset($f['study_title']) && $f['study_title'] != '') {
             $query = $query->where('study_title', 'like', '%' . $f['study_title'] . '%');
         }
