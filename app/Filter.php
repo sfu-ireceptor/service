@@ -148,6 +148,19 @@ class Filter extends Model
                 $query = $query->where('junction_aa_length', '=', $filtervalue);
                 continue;
             }
+            if ($filtername == 'v_call') {
+                $query = $query->where('vgene_allele', 'like', $filtervalue . '%');
+                continue;
+            }
+            if ($filtername == 'j_call') {
+                $query = $query->where('jgene_allele', 'like', $filtervalue . '%');
+                continue;
+            }
+            if ($filtername == 'd_call') {
+                $query = $query->where('dgene_allele', 'like', $filtervalue . '%');
+                continue;
+            }
+
             if ($filtername == 'v_allele') {
                 $query = $query->where('vgene_allele', 'like', $filtervalue . '%');
                 continue;
