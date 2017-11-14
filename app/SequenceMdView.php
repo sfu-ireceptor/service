@@ -37,7 +37,7 @@ class SequenceMdView extends Model
     {
         $query = new self();
 
-        self::parseFilter($query, $f);
+        Filter::parseFilter($query, $f);
 
         return $query->count();
     }
@@ -47,17 +47,17 @@ class SequenceMdView extends Model
         set_time_limit(0);
         //function to CSV-ise a JSON result list for sequence annotation and metadata
         $query = new self();
-        self::parseFilter($query, $filter);
-        $sample_query = new SampleQueryView();
-        $sample_rows = $sample_query->whereIn('project_sample_id', $filter['project_sample_id_list'])->get()->toArray();
+        Filter::parseFilter($query, $filter);
+        $sample_query = new SampleAirrView();
+        $sample_rows = $sample_query->whereIn('ir_project_sample_id', $filter['ir_project_sample_id_list'])->get()->toArray();
         $sample_metadata = [];
         foreach ($sample_rows as $sample) {
-            $sample_metadata[$sample['project_sample_id']] = $sample;
+            $sample_metadata[$sample['ir_project_sample_id']] = $sample;
         }
         $sample_headers = array_keys($sample_rows[0]);
 
         //unset project_sample_id as it already exists in sequence header
-        if (($key = array_search('project_sample_id', $sample_headers)) !== false) {
+        if (($key = array_search('ir_project_sample_id', $sample_headers)) !== false) {
             unset($sample_headers[$key]);
         }
         $gateway_db_name = '';
@@ -137,7 +137,7 @@ class SequenceMdView extends Model
             $time_end_find = microtime(true) - $time_start_find;
             Log::info('find sequences time = ' . $time_end_find);
             if ($i == 1) {
-                $sequence_headers = array_keys($sequence_list[0]->toArray());
+                $sequence_headers =  array_keys(FieldName::convert($sequence_list[0]->toArray(),'ir_v1_sql', 'ir_v2'));
                 $headers_array = array_merge($sequence_headers, $sample_headers);
                 $headers_array[] = 'db_name';
                 fputcsv($file, $headers_array, ',');

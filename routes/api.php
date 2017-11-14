@@ -34,6 +34,7 @@ Route::any('clones', 'SequenceController@clones');
 Route::any('/v2/samples', 'SampleController@airr');
 Route::any('/v2/clones_summary', 'SequenceController@clones');
 Route::any('/v2/sequences_summary', 'SequenceController@summary');
+Route::any('/v2/sequences_data', 'SequenceController@data');
 
 /*
 |--------------------------------------------------------------------------
