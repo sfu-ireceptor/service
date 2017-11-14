@@ -137,7 +137,7 @@ class SequenceMdView extends Model
             $time_end_find = microtime(true) - $time_start_find;
             Log::info('find sequences time = ' . $time_end_find);
             if ($i == 1) {
-                $sequence_headers =  array_keys(FieldName::convert($sequence_list[0]->toArray(),'ir_v1_sql', 'ir_v2'));
+                $sequence_headers = array_keys(FieldName::convert($sequence_list[0]->toArray(), 'ir_v1_sql', 'ir_v2'));
                 $headers_array = array_merge($sequence_headers, $sample_headers);
                 $headers_array[] = 'db_name';
                 fputcsv($file, $headers_array, ',');

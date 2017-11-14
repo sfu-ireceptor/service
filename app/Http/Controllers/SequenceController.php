@@ -90,12 +90,12 @@ class SequenceController extends Controller
 
         return json_encode($t);
     }
-    public function data (Request $request)
+
+    public function data(Request $request)
     {
         $filter = $request->all();
         ExternalUser::checkPermissions($filter);
 
         return response()->download(SequenceMdView::createCsvGW($filter))->deleteFileAfterSend(true);
- 
     }
 }
