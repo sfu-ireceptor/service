@@ -30,7 +30,7 @@ class VquestMetadata extends Model
         $sample_rows = $sample_query->whereIn('ir_project_sample_id', $psa_list)->get();
         $sample_metadata = [];
         foreach ($sample_rows as $sample) {
-            $sample['ir_filtered_squence_count'] = $counts[$sample['ir_project_sample_id']];
+            $sample['ir_filtered_sequence_count'] = $counts[$sample['ir_project_sample_id']];
             $sample_metadata[] = $sample;
         }
 
