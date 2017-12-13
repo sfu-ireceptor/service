@@ -13,8 +13,7 @@ class SampleController extends Controller
     {
         if (config('app.auth')) {
             $this->middleware('auth.basic');
-        }
-        else {
+        } else {
             // if public node, allow CORS (Cross-Origin Resource Sharing)
             // to allow testing with Swagger
             $this->middleware('cors');
