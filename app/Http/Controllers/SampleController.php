@@ -22,11 +22,6 @@ class SampleController extends Controller
 
     public function index(Request $request)
     {
-        Log::info('test');
-        Log::info($request->header('Origin'));
-        Log::info($request->header('User-Agent'));
-        Log::info($request->header());
-
         $filter = $request->all();
         ExternalUser::checkPermissions($filter);
 
